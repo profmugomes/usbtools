@@ -1,0 +1,36 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,65,35)
+  Font = Font["12"]
+  Text = ("USB Tools")
+  Icon = Picture["usbtools.png"]
+  Resizable = False
+  { Label1 Label
+    MoveScaled(1,2,61,3)
+    Font = Font["Bold"]
+    Text = ("Selecione o dispositivo removível")
+  }
+  { cboUSB ComboBox
+    MoveScaled(1,6,63,4)
+    Enabled = False
+    ReadOnly = True
+  }
+  { lblInfo Label
+    MoveScaled(1,11,63,4)
+    Visible = False
+    Font = Font["Bold"]
+    Foreground = Color.Red
+    Alignment = Align.Center
+    Text = ("Removendo dispositivo... Aguarde!")
+  }
+  { btnRemoveUSB Button
+    MoveScaled(1,17,62,8)
+    Enabled = False
+    Text = ("Remover com segurança")
+  }
+  { btnAbout Button
+    MoveScaled(1,28,14,4)
+    Text = ("Sobre")
+  }
+}

@@ -1,0 +1,25 @@
+# Gambas Project File 3.0
+Title=USBTools
+Startup=FMain
+Icon=usbtools.png
+Version=0.0.2
+Component=gb.image
+Component=gb.gtk3
+Component=gb.form
+Component=gb.inotify
+Description="Remove HD externa e pendrives com segurança."
+Authors="Murilo Gomes <contatoprofmugomes@gmail.com.br>"
+TabSize=2
+Language=pt_BR
+Maintainer=Murilo Gomes
+Vendor=MG
+VendorPrefix=MG
+Address=contatoprofmugomes@gmail.com
+Url=profmugomes.blogspot.com
+License=General Public License
+PackageName=usbtools-0.0.2
+Packager=1
+Systems=ubuntu
+Menus=ubuntu:"Applications/System/Hardware"
+Categories=ubuntu:"System"
+Groups=ubuntu:"utils"

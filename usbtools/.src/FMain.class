@@ -1,0 +1,92 @@
+' Gambas class file
+
+'USB Tools - Remover HD externa e pendrive com segurança.
+'Gambas3 Version 3.18.0.
+
+'See https://github.com/profmugomes/usbtools/ The USBTools GitHub project
+
+'Author Murilo Gomes <contatoprofmugomes@gmail.com>
+'Copyright 2023 Murilo Gomes
+'License https://www.gnu.org/licenses/gpl-2.0.html GNU GENERAL PUBLIC LICENSE
+'Note: This program is distributed in the hope that it will be useful,
+'but WITHOUT ANY WARRANTY; without even the implied warranty of
+'MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+Private $hWatch As Watch
+
+Private Sub LoadUSB()
+  Dim sNameUSB As String 
+  Dim sUSBs As String[]
+  
+  cboUSB.Clear()
+  
+  Wait 1
+  
+  Shell "ls /media/" & User.Name & "/" Wait To sNameUSB
+  
+  sUSBs = Split(sNameUSB, gb.NewLine)
+  
+  For Each sUSB As String In sUSBs
+    If Not IsNull(sUSB) Then 
+      cboUSB.Add(sUSB)
+    Endif
+  Next
+  
+  If cboUSB.Count > 0 Then
+    btnRemoveUSB.Enabled = True 
+    cboUSB.Enabled = True
+  Endif
+End
+
+Public Sub Form_Open()  
+  LoadUSB()
+  
+  If Exist("/media/" & User.Name & "/") Then 
+    $hWatch = New Watch("/media/" & User.Name & "/", True) As "Watcher"
+  Endif
+End
+
+Public Sub Watcher_Create()
+  LoadUSB()
+End
+
+Public Sub btnRemoveUSB_Click()
+  Dim sStatus As String 
+  Dim sDisps As String
+  Dim sDisp As String[]
+  Dim sUSB As String 
+  
+  btnRemoveUSB.Enabled = False
+  cboUSB.Enabled = False
+  lblInfo.Visible = True
+  
+  Wait 1
+  
+  Shell "lsblk -l | grep \"/media/" & User.Name & "/" & cboUSB.Text & "\"" Wait To sDisps
+  sDisp = Split(sDisps, " ")
+  sUSB = Replace(Replace(sDisp[0], gb.NewLine, ""), " ", "")
+  Wait 1
+  Shell "udisksctl unmount -b /dev/" & sUSB Wait To sStatus
+  Wait 1
+  Shell "udisksctl power-off -b /dev/" & sUSB Wait To sStatus
+  Wait 1
+  
+  lblInfo.Visible = False
+  
+  If Not Exist("/media/" & User.Name & "/" & cboUSB.Text) Then 
+    Message.Info("Dispositivo removido com sucesso!")
+    LoadUSB()
+  Else 
+    Message.Error("Dispositivo está ocupado e por isso não pode ser removido!")
+    LoadUSB()
+  Endif
+End
+
+Public Sub btnAbout_Click()
+  FAbout.Show()
+End
+
+Public Sub Form_Close()
+  Quit
+End

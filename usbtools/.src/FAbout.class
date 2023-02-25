@@ -1,0 +1,19 @@
+' Gambas class file
+
+'USB Tools - Remover HD externa e pendrive com segurança.
+'Gambas3 Version 3.18.0.
+
+'See https://github.com/profmugomes/usbtools/ The USBTools GitHub project
+
+'Author Murilo Gomes <contatoprofmugomes@gmail.com>
+'Copyright 2023 Murilo Gomes
+'License https://www.gnu.org/licenses/gpl-2.0.html GNU GENERAL PUBLIC LICENSE
+'Note: This program is distributed in the hope that it will be useful,
+'but WITHOUT ANY WARRANTY; without even the implied warranty of
+'MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+Public Sub Form_Open()
+
+  
+
+End
